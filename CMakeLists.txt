@@ -1,37 +1,25 @@
-cmake_minimum_required(VERSION 3.10)
-project(gba-emulator)
+#include <iostream>
+#include <string>
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+#include "emulator.hpp"
 
-# Find required packages
-find_package(SDL2 REQUIRED)
+int main(int argc, char* argv[]) {
+    if (argc < 2) {
+        std::cout << "Usage: gba-emulator <rom.gba>" << std::endl;
+        std::cout << "This is a scaffold emulator project. Full GBA compatibility is still under development." << std::endl;
+        return 1;
+    }
 
-# Include directories
-include_directories(${SDL2_INCLUDE_DIRS})
-include_directories(${PROJECT_SOURCE_DIR}/src)
+    Emulator emulator;
+    const std::string rom_path = argv[1];
 
-# Source files
-set(SOURCES
-    src/main.cpp
-    src/emulator.cpp
-    src/cpu/cpu.cpp
-    src/memory/memory.cpp
-    src/graphics/ppu.cpp
-    src/audio/apu.cpp
-    src/input/input.cpp
-    src/cartridge/cartridge.cpp
-)
+    if (!emulator.load_rom(rom_path)) {
+        std::cerr << "Unable to load ROM: " << rom_path << std::endl;
+        return 2;
+    }
 
-# Create executable
-add_executable(gba-emulator ${SOURCES})
-
-# Link libraries
-target_link_libraries(gba-emulator ${SDL2_LIBRARIES})
-
-# Platform-specific settings
-if(MSVC)
-    target_compile_options(gba-emulator PRIVATE /W4)
-else()
-    target_compile_options(gba-emulator PRIVATE -Wall -Wextra -Wpedantic)
-endif()
+    std::cout << "GBA emulator initialized. Running a simplified starter frame loop..." << std::endl;
+    emulator.run_frame();
+    std::cout << "Emulator loop finished." << std::endl;
+    return 0;
+}
