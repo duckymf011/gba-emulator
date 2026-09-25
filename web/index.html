@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GBA Emulator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <h1>GBA Emulator</h1>
+            <p class="subtitle">Browser-based prototype</p>
+
+            <label class="file-picker">
+                <span>Select ROM</span>
+                <input type="file" id="romInput" accept=".gba,.bin" />
+            </label>
+
+            <button id="loadRomBtn">Load Game</button>
+
+            <div class="file-meta">
+                <p id="romName">No game loaded</p>
+                <p id="romSize">Size: --</p>
+                <p id="fpsLabel">FPS: 0</p>
+            </div>
+
+            <div class="controls-panel">
+                <h2>Controls</h2>
+                <div class="control-grid">
+                    <button class="touch-btn" data-button="Up">↑</button>
+                    <button class="touch-btn" data-button="A">A</button>
+                    <button class="touch-btn" data-button="Left">←</button>
+                    <button class="touch-btn" data-button="B">B</button>
+                    <button class="touch-btn" data-button="Right">→</button>
+                    <button class="touch-btn" data-button="L">L</button>
+                    <button class="touch-btn" data-button="Down">↓</button>
+                    <button class="touch-btn" data-button="R">R</button>
+                    <button class="touch-btn" data-button="Start">Start</button>
+                    <button class="touch-btn" data-button="Select">Select</button>
+                </div>
+            </div>
+        </aside>
+
+        <main class="screen-panel">
+            <canvas id="screen" width="240" height="160"></canvas>
+            <div class="legend">
+                <span>Keyboard: Arrows/Z/X/Q/W/Enter/Space</span>
+            </div>
+        </main>
+    </div>
+
+    <script src="emulator-core.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
